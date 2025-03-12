@@ -1,16 +1,16 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const fs = require("fs");
-const path = require("path");
+const express = require("express"); // Import the express module
+const bodyParser = require("body-parser"); // Import the body-parser module
+const cors = require("cors"); // Import the cors module
+const fs = require("fs"); // Import the fs module
+const path = require("path"); // Import the path module
 
-const app = express();
-const PORT = 3000;
-const dbFilePath = path.join(__dirname, "db.json");
+const app = express(); // Create an express application
+const PORT = 3000; // Set the port number
+const dbFilePath = path.join(__dirname, "db.json"); // Set the path to the database file
 
 // Middleware
-app.use(bodyParser.json());
-app.use(cors());
+app.use(bodyParser.json()); // Parse JSON request bodies. This is equivalent to express.json()
+app.use(cors());  // Enable CORS
 
 // Helper function to read data from database.json
 const readDataFromFile = () => {
