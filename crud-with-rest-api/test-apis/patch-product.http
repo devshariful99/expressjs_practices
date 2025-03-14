@@ -1,7 +1,0 @@
-PUT http://localhost:3000/products/1
-Content-Type: application/json
-
-{
-    "name": "Product 1",
-    "price": 200
-}
