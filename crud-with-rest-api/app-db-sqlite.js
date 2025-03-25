@@ -37,9 +37,16 @@ app.post("/products", (req, res) => {
     [name, price, description],
     function (err) {
       if (err) {
-        res.status(500).json({ error: err.message });
+        res.status(500).json({
+          status: "error",
+          message: err.message,
+        });
       } else {
-        res.status(201).json({ id: this.lastID, name, price, description });
+        res.status(201).json({
+          status: "success",
+          message: "Product created successfully",
+          data: { id: this.lastID, name, price, description },
+        });
       }
     }
   );
@@ -49,9 +56,16 @@ app.post("/products", (req, res) => {
 app.get("/products", (req, res) => {
   db.all("SELECT * FROM products", [], (err, rows) => {
     if (err) {
-      res.status(500).json({ error: err.message });
+      res.status(500).json({
+        status: "error",
+        message: err.message,
+      });
     } else {
-      res.json(rows);
+      res.json({
+        status: "success",
+        message: "Products retrieved successfully",
+        data: rows,
+      });
     }
   });
 });
@@ -61,11 +75,22 @@ app.get("/products/:id", (req, res) => {
   const { id } = req.params;
   db.get("SELECT * FROM products WHERE id = ?", [id], (err, row) => {
     if (err) {
-      res.status(500).json({ error: err.message });
+      res.status(500).json({
+        status: "error",
+        message:
+          err.code === "SQLITE_NOT_FOUND" ? "Product not found" : err.message,
+      });
     } else if (!row) {
-      res.status(404).json({ error: "Product not found" });
+      res.status(404).json({
+        status: "error",
+        message: "Product not found",
+      });
     } else {
-      res.json(row);
+      res.json({
+        status: "success",
+        message: "Product retrieved successfully",
+        data: row,
+      });
     }
   });
 });
@@ -79,11 +104,21 @@ app.put("/products/:id", (req, res) => {
     [name, price, description, id],
     function (err) {
       if (err) {
-        res.status(500).json({ error: err.message });
+        res.status(500).json({
+          status: "error",
+          message: err.message,
+        });
       } else if (this.changes === 0) {
-        res.status(404).json({ error: "Product not found" });
+        res.status(404).json({
+          status: "error",
+          message: "Product not found",
+        });
       } else {
-        res.json({ id, name, price, description });
+        res.json({
+          status: "success",
+          message: "Product updated successfully",
+          data: { id, name, price, description },
+        });
       }
     }
   );
@@ -94,11 +129,20 @@ app.delete("/products/:id", (req, res) => {
   const { id } = req.params;
   db.run("DELETE FROM products WHERE id = ?", [id], function (err) {
     if (err) {
-      res.status(500).json({ error: err.message });
+      res.status(500).json({
+        status: "error",
+        message: err.message,
+      });
     } else if (this.changes === 0) {
-      res.status(404).json({ error: "Product not found" });
+      res.status(404).json({
+        status: "error",
+        message: "Product not found",
+      });
     } else {
-      res.json({ message: "Product deleted successfully" });
+      res.json({
+        status: "success",
+        message: "Product deleted successfully",
+      });
     }
   });
 });
