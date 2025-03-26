@@ -18,3 +18,5 @@ benchmarks/graphs
 *.db
 *.sqlite
 *.sqlite3
+*.log
+*.env

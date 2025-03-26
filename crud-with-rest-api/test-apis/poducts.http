@@ -22,7 +22,7 @@ PUT http://localhost:3000/products/1
 Content-Type: application/json
 
 {
-    "name": "Product 1",
+    "name": "iPhone",
     "price": 200
 }
 
@@ -31,7 +31,7 @@ PATCH  http://localhost:3000/products/1
 Content-Type: application/json
 
 {
-    "price": 200
+    "price": 1000
 }
 
 
