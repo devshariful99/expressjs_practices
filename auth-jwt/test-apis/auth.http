@@ -1,0 +1,21 @@
+### Signup
+POST http://localhost:3000/signup
+Content-Type: application/json
+
+{
+    "name": "Md Babul Mirdha",
+    "email": "babul@example.com",
+    "password": "12345678"
+}
+
+
+### Login
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "email": "babul@example.com",
+    "password": "12345678"
+}
+
+
