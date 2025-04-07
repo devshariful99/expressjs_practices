@@ -65,6 +65,36 @@ app.post('/login', async (req, res) => {
   }
 });
 
+
+// Me route
+app.get('/me', async (req, res) => {
+  const token = req.headers.authorization?.split(' ')[1];
+
+  if (!token) {
+    return res.status(401).json({ message: 'Authorization token is required.' });
+  }
+
+  try {
+    // Verify token
+    const decoded = jwt.verify(token, 'secretkeyappearshere');
+    
+    // Fetch user from DB
+    const user = await User.findById(decoded.userId).select('-password'); // exclude password
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found.' });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: user,
+    });
+  } catch (err) {
+    console.error('Me Route Error:', err.message);
+    res.status(401).json({ message: 'Invalid or expired token.' });
+  }
+});
+
 // Connect to MongoDB and start server
 mongoose.connect('mongodb://localhost:27017/testDB', {
   useNewUrlParser: true,
