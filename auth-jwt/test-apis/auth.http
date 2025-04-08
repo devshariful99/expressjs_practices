@@ -1,0 +1,26 @@
+### Signup
+POST http://localhost:3000/signup
+Content-Type: application/json
+
+{
+    "name": "Md Babul Mirdha",
+    "email": "babul@example.com",
+    "password": "12345678"
+}
+
+
+### Login
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "email": "babul@example.com",
+    "password": "12345678"
+}
+
+
+
+### Get My Profile
+GET http://localhost:3000/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2YzZTYyZWI2OWU5YjVkNmUxZGIxMjEiLCJlbWFpbCI6ImJhYnVsQGV4YW1wbGUuY29tIiwiaWF0IjoxNzQ0MDQ1NjczLCJleHAiOjE3NDQwNDkyNzN9.x9AcbKZ2iv68RJZ_OtOlToii3jB8K9ZjSFfVCElF8wk
+Content-Type: application/json
